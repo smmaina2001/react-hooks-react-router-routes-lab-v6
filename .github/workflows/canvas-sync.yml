@@ -1,0 +1,38 @@
+name: Canvas Sync Workflow
+
+on:
+  push:
+    branches:
+      - main  # Change this to the branch you want to trigger the workflow on
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    # Define environment variables globally for the job
+    env:
+      CANVAS_API_KEY: ${{ secrets.CANVAS_API_KEY }}
+      CANVAS_API_PATH: ${{ secrets.CANVAS_API_PATH }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js (if needed, e.g., for a Node.js app)
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # Specify your Node.js version here
+
+      - name: Install dependencies
+        run: |
+          npm install  # If you're using npm, replace with your relevant command
+
+      - name: Run Canvas sync script
+        run: |
+          echo "Running Canvas Sync with the Canvas API"
+          # Replace with the command that uses CANVAS_API_KEY and CANVAS_API_PATH, e.g.:
+          # node syncCanvas.js
+        env:
+          CANVAS_API_KEY: ${{ secrets.CANVAS_API_KEY }}
+          CANVAS_API_PATH: ${{ secrets.CANVAS_API_PATH }}
+
